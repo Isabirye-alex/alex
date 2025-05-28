@@ -1,23 +1,28 @@
-import 'package:africa/widgets/ussd_text_field.dart';
+import 'package:africa/pages/ussdpage.dart';
+import 'package:africa/widgets/mcash_text_field.dart';
 import 'package:flutter/material.dart';
-
 import '../controllers/text_controller.dart';
 import '../utilis/constants/text_strings.dart';
 import 'package:get/get.dart';
-class AgriLinkMenu {
-  final controller = Get.put(TextController());
+
+class AgriMenu extends StatefulWidget {
+  const AgriMenu({super.key});
+
+  @override
+  State<AgriMenu> createState() => _AgriMenuState();
 }
 
-Future openDialog(BuildContext context) => showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context)=> AlertDialog(
+class _AgriMenuState extends State<AgriMenu> {
+  final TextController controller = TextController.instance;
+
+  @override
+  Widget build(BuildContext context){
+    return AlertDialog(
       title: Text(Texts.mCashTitle),
       content: Container(
-
         margin: EdgeInsets.zero,
         width: 300,
-        height: 150,
+        height: 400,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,23 +41,38 @@ Future openDialog(BuildContext context) => showDialog(
               children: [
                 Text(Texts.content14),
                 Text(Texts.content15),
-                Text(Texts.content16)
+                Text(Texts.content16),
               ],
             ),
-            UssdTextField(text: ''),
-
+            McashTextField(text: ''),
           ],
-
         ),
       ),
       actions: [
-        TextButton(onPressed: (){
-          Navigator.pop(context);
-        }, child: Text('CANCEL', style: TextStyle(color: Colors.red))),
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.to(()=> UssdPage()),
+          child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
+        ),
+        ElevatedButton(
+          onPressed: () => controller.checkNumber2(),
           child: Text('SEND', style: TextStyle(color: Colors.blue)),
         )
-      ],
-    ));
 
+      ],
+    );
+  }
+}
+//
+//
+// TextButton(
+// onPressed: ()=> Get.generalDialog(
+// barrierDismissible: true,
+// barrierLabel: '',
+// barrierColor: Colors.transparent, // keeps background visible
+// transitionDuration: const Duration(milliseconds: 200),
+// pageBuilder: (context, animation, secondaryAnimation) {
+// return Center(child: controller.checkNumber2());
+// },
+// ),
+// child: const Text('SEND', style: TextStyle(color: Colors.blue)),
+// ),

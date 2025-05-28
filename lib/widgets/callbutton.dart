@@ -1,15 +1,27 @@
-import 'package:africa/widgets/pop_up_widget2.dart';
-import 'package:flutter/material.dart';
 
+import 'package:africa/widgets/popup_widget_1.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class CallButton extends StatelessWidget {
   const CallButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.put(TextController());
     return GestureDetector(
-      onTap: (){
-        openDialog(context);
+      onTap: () {
+        Get.generalDialog(
+          barrierDismissible: true,
+          barrierLabel: '',
+          barrierColor: Colors.transparent, // keeps background visible
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return Center(
+                child: PopupWidget1());
+          },
+        );
       },
+
       child: Container(
         height: 35,
         width: double.infinity,

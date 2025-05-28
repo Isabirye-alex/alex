@@ -1,8 +1,10 @@
+import 'package:africa/pages/ussdpage.dart';
+import 'package:africa/widgets/mcash_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/agrilinkmenu.dart';
 import '../widgets/fuel_menu.dart';
-import '../widgets/pop_up_widget2.dart';
+
 
 class TextController extends GetxController {
   static TextController get instance => Get.find();
@@ -17,29 +19,99 @@ class TextController extends GetxController {
 
     });
   }
-  void checkNumber() {
-    if (number.value == 1) {
-      Get.to(()=>McashMenu());
-    } else if (number.value == 2) {
-      Get.to(()=>AgriLinkMenu());
-    } else if (number.value == 3) {
-      Get.to(()=>FuelMenu());
-    } else if (number.value == 0){
-      Get.to(()=>Page);
-    } else if (number.value == 00){
-      Get.to(()=>Page);
-    }
-    else {
-      Get.snackbar(
-        '',
-        'Please enter a valid number',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
 
+  void checkNumber1() async {
+
+    Get.dialog(
+      Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    await Future.delayed(Duration(seconds: 2));
+
+    Get.back();
+
+    switch (number.value) {
+      case 1:
+        showTransparentDialog(McashMenu());
+        break;
+
+      case 2:
+        showTransparentDialog(AgriMenu());
+        break;
+
+      case 3:
+        showTransparentDialog(FuelMenu());
+        break;
+
+      case 0:
+        Get.to(() => Page); // Replace with actual widget
+        break;
+
+      case 00:
+        Get.to(() => UssdPage());
+        break;
+
+      default:
+        Get.snackbar(
+          '',
+          'Please enter a valid number',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+    }
   }
+
+  void checkNumber2() async {
+    Get.dialog(
+      Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    await Future.delayed(Duration(seconds: 2));
+
+    Get.back();
+
+    switch (number.value) {
+      case 1:
+        showTransparentDialog(McashMenu());
+        break;
+      case 2:
+        showTransparentDialog(AgriMenu());
+        break;
+      case 3:
+        showTransparentDialog(FuelMenu());
+        break;
+      case 0:
+        showTransparentDialog(UssdPage());
+      case 00:
+        showTransparentDialog(UssdPage());
+        break;
+      default:
+        Get.snackbar(
+          '',
+          'Please enter a valid number',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+    }
+  }
+
+  void showTransparentDialog(Widget child) {
+    Get.generalDialog(
+      barrierDismissible: true,
+      barrierLabel: '',
+      barrierColor: Colors.transparent,
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Center(child: child);
+      },
+    );
+  }
+
+
   @override
   void onClose() {
     controller.dispose();

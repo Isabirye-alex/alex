@@ -5,14 +5,14 @@ import '../controllers/text_controller.dart';
 import '../utilis/constants/text_strings.dart';
 import 'package:get/get.dart';
 
-class FuelMenu extends StatefulWidget {
-  const FuelMenu({super.key});
+class McashMenu extends StatefulWidget {
+  const McashMenu({super.key});
 
   @override
-  State<FuelMenu> createState() => _FuelMenuState();
+  State<McashMenu> createState() => _McashMenuState();
 }
 
-class _FuelMenuState extends State<FuelMenu> {
+class _McashMenuState extends State<McashMenu> {
   final TextController controller = TextController.instance;
 
   @override
