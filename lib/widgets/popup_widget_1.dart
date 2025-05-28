@@ -14,7 +14,7 @@ class PopupWidget1 extends StatefulWidget {
 }
 
 class _PopupWidget1State extends State<PopupWidget1> {
-  final TextController controller = TextController.instance;
+  final controller = Get.put(TextController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _PopupWidget1State extends State<PopupWidget1> {
       title: Text(Texts.title),
       content: Container(
         margin: EdgeInsets.zero,
-        width: 300,
+        width: MediaQuery.of(context).size.width * 0.9,
         height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
