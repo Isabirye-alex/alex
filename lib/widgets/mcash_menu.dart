@@ -53,11 +53,10 @@ class _McashMenuState extends State<McashMenu> {
           onPressed: () => Get.to(()=> UssdPage()),
           child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () => controller.checkNumber2(),
           child: Text('SEND', style: TextStyle(color: Colors.blue)),
         )
-
       ],
     );
   }

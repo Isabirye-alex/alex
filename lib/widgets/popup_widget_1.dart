@@ -43,7 +43,7 @@ class _PopupWidget1State extends State<PopupWidget1> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Get.to(()=> UssdPage()),
+          onPressed: () => Get.back(),
           child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
         ),
         TextButton(
