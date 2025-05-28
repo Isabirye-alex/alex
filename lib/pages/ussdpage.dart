@@ -2,6 +2,9 @@ import 'package:africa/widgets/circular_container.dart';
 import 'package:flutter/material.dart';
 import '../screens/bodyscreen.dart';
 import '../utilis/constants/text_strings.dart';
+import '../widgets/callbutton.dart';
+import '../widgets/popup_widget_1.dart';
+import '../widgets/ussd_text_field.dart';
 
 class UssdPage extends StatelessWidget {
   const UssdPage({super.key});
@@ -43,7 +46,7 @@ class UssdPage extends StatelessWidget {
                           SizedBox(height: 8),
                           Text(Texts.ussdText4, style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.grey)),
                           SizedBox(height: 8),
-                          UssdTextField(),
+                          UssdTextField(text: 'USSD Code',),
                           SizedBox(height: 16),
                           CallButton()
                         ]
@@ -58,32 +61,3 @@ class UssdPage extends StatelessWidget {
 }
 
 
-
-class CallButton extends StatelessWidget {
-  const CallButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Colors.green),
-      child: Center(child: Text('CALL', style: TextStyle(fontSize: 20, color: Colors.white))),
-    );
-  }
-}
-class UssdTextField extends StatelessWidget {
-  UssdTextField({super.key});
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintStyle: TextStyle(color: Colors.purple, fontSize: 15),
-        hintText: 'USSD Code'
-      ),
-      controller: _controller,
-    );
-  }
-}

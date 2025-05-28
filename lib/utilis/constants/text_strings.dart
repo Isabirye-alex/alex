@@ -14,8 +14,8 @@ static const String title = 'Select Service';
 static const String content11 = '1. Events';
 static const String content12 = '2. Agrilink';
 static const String content13 = '3. Fuel+';
-static const String content14 = '0. Back';
-static const String content15 = '00';
+static const String content14 = '0.Back';
+static const String content15 = ' 00.';
 static const String content16 = 'Main Menu';
 
 //MCash pop up

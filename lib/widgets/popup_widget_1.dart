@@ -1,34 +1,54 @@
+import 'package:africa/widgets/ussd_text_field.dart';
 import 'package:flutter/material.dart';
-
+import '../controllers/text_controller.dart';
 import '../utilis/constants/text_strings.dart';
+import 'package:get/get.dart';
+class PopupWidget1 {
+  final controller = Get.put(TextController());
 
-class PopupWidget1 extends StatelessWidget {
-  const PopupWidget1({super.key});
+  Future openDialog(BuildContext context) =>
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) =>
+              AlertDialog(
+                title: Text(Texts.title),
+                content: Container(
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(Texts.title),
-      content: Column(children: [
-        // PopUpTile(text: '', child: )
-      ],
-      ),
-      
-    );
-  }
-}
+                  margin: EdgeInsets.zero,
+                  width: 300,
+                  height: 150,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(Texts.content11),
+                      Text(Texts.content12),
+                      Text(Texts.content13),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(Texts.content14),
+                          Text(Texts.content15),
+                          Text(Texts.content16)
+                        ],
+                      ),
+                      UssdTextField(text: ''),
 
-class PopUpTile extends StatelessWidget {
-  const PopUpTile({
-    super.key, required this.text,required this.child,
-  });
-  final String text;
-  final Widget child;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(text),
-      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>child));},
-    );
-  }
+                    ],
+
+                  ),
+                ),
+                actions: [
+                  TextButton(onPressed: () {
+                    Navigator.pop(context);
+                  },
+                      child: Text(
+                          'CANCEL', style: TextStyle(color: Colors.red))),
+                  TextButton(
+                    onPressed: () => Get.to(() => controller.checkNumber()),
+                    child: Text('SEND', style: TextStyle(color: Colors.blue)),
+                  )
+                ],
+              )
+      );
 }
