@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../screens/bodyscreen.dart';
 import '../utilis/constants/text_strings.dart';
 import '../widgets/callbutton.dart';
-import '../widgets/popup_widget_1.dart';
 import '../widgets/ussd_text_field.dart';
 
 class UssdPage extends StatelessWidget {

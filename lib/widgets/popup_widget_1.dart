@@ -1,5 +1,4 @@
 import 'package:africa/widgets/pop1_text.dart';
-import 'package:africa/widgets/ussd_text_field.dart';
 import 'package:flutter/material.dart';
 import '../controllers/text_controller.dart';
 import '../pages/ussdpage.dart';
