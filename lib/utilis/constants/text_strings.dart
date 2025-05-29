@@ -31,4 +31,9 @@ static const String content28 = '8. My Account';
 static const String content29 = '9. MCash Pay';
 static const String content230 = '10. Services';
 
+//Register contact screen
+static const String paragraph = 'Choose the country you\'re building for and enter a valid phone number.';
+static const String paragraph2 = 'This is the number you will interact with.';
+static const String paragraph3 = 'By choosing to proceed, you agree to the following terms and conditions';
+
 }

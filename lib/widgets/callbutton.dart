@@ -36,16 +36,4 @@ class CallButton extends StatelessWidget {
       ),
     );
   }
-  void showTransparentDialog(Widget child) {
-    Get.generalDialog(
-      barrierDismissible: true,
-      barrierLabel: '',
-      barrierColor: Colors.transparent,
-      transitionDuration: Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Center(child: child);
-      },
-    );
-  }
-
 }

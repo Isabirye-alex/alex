@@ -16,25 +16,10 @@ class UssdTextController extends GetxController {
   }
 
   void checkCode() async {
-    // Get input from TextController
     final input = ucontroller.text.trim();
 
-    //Show loading indicator
-    Get.dialog(
-      Center(child: CircularProgressIndicator()),
-      barrierDismissible: false,
-    );
-
-    // Simulate API call or processing delay
-    await Future.delayed(Duration(seconds: 2));
-
-    //Dismiss loading
-    Get.back();
-
-    // Validate input (basic USSD pattern: *123# or *123*1# etc.)
-    final isValidUssd = RegExp(r'^\*\d+(\*\d+)*\#$').hasMatch(input);
-
-    if(ucontroller.value.text.isEmpty){
+    // Check for empty input first
+    if (input.isEmpty) {
       Get.snackbar(
         'Empty USSD',
         'Please enter a USSD code',
@@ -42,22 +27,36 @@ class UssdTextController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      Get.back();
+      return; // Exit early
     }
+
+    // Show loading indicator
+    Get.dialog(
+      Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    // Simulate API call or processing delay
+    await Future.delayed(Duration(seconds: 1));
+
+    // Dismiss loading dialog
+    Get.back();
+
+    // Validate input
+    final isValidUssd = RegExp(r'^\*\d+(\*\d+)*\#$').hasMatch(input);
+
     if (isValidUssd) {
       Get.generalDialog(
         barrierDismissible: true,
         barrierLabel: '',
-        barrierColor: Colors.transparent, // Background stays visible
+        barrierColor: Colors.transparent,
         transitionDuration: Duration(milliseconds: 300),
         pageBuilder: (context, animation, secondaryAnimation) {
           return Center(child: PopupWidget1());
-        },
-      );
-
+        });
 
     } else {
-      //Display error message
+      // Display error message for invalid USSD
       Get.snackbar(
         'Invalid USSD',
         'Please enter a valid USSD code like *123#',
@@ -65,8 +64,8 @@ class UssdTextController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      Get.back();
     }
   }
+
 
 }
