@@ -1,19 +1,23 @@
+import 'package:africa/controllers/phone_number_controller.dart';
 import 'package:africa/features/covert_class.dart';
 import 'package:flutter/material.dart';
 import 'countries_class.dart';
+import 'package:get/get.dart';
+
 
 class CountriesMainClass extends StatefulWidget {
-  const CountriesMainClass({super.key});
+  final Function(Countries)? onCountrySelected;
+
+  const CountriesMainClass({super.key, this.onCountrySelected});
 
   @override
   State<CountriesMainClass> createState() => _CountriesMainClassState();
 }
 
 class _CountriesMainClassState extends State<CountriesMainClass> {
-  late Future<List<Countries>> futureCountry;
   List<Countries> countries = [];
   Countries? selectedCountry;
-  final phoneController = TextEditingController();
+  final phoneController = Get.put(PhoneController());
 
   @override
   void initState() {
@@ -22,6 +26,9 @@ class _CountriesMainClassState extends State<CountriesMainClass> {
       setState(() {
         countries = result;
         selectedCountry = countries.isNotEmpty ? countries[0] : null;
+        if (selectedCountry != null && widget.onCountrySelected != null) {
+          widget.onCountrySelected!(selectedCountry!);
+        }
       });
     });
   }
@@ -35,7 +42,6 @@ class _CountriesMainClassState extends State<CountriesMainClass> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          /// Country Dropdown
           Row(
             children: [
               Expanded(
@@ -46,6 +52,9 @@ class _CountriesMainClassState extends State<CountriesMainClass> {
                     setState(() {
                       selectedCountry = newValue!;
                     });
+                    if (widget.onCountrySelected != null) {
+                      widget.onCountrySelected!(newValue!);
+                    }
                   },
                   items: countries.map((country) {
                     return DropdownMenuItem(
@@ -58,7 +67,6 @@ class _CountriesMainClassState extends State<CountriesMainClass> {
             ],
           ),
           const SizedBox(height: 20),
-
           Row(
             children: [
               Container(
@@ -69,14 +77,18 @@ class _CountriesMainClassState extends State<CountriesMainClass> {
                 ),
                 child: Text(selectedCountry!.code),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               Expanded(
-                child: TextField(
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: "Phone Number",
-                    border: OutlineInputBorder(),
+                child: Form(
+                  key: phoneController.formKey,
+                  child: TextFormField(
+                    controller: phoneController.phoneController,
+                    inputFormatters: phoneController.phoneInputFormatters,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                    ),
+                    validator: (value) => phoneController.validatePhoneNumber(),
                   ),
                 ),
               ),
