@@ -1,3 +1,4 @@
+import 'package:africa/shared/dialogs/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,7 @@ class UssdTextController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-      return; // Exit early
+      return;
     }
 
     // Show loading indicator
@@ -47,6 +48,9 @@ class UssdTextController extends GetxController {
     final isValidUssd = RegExp(r'^\*\d+(\*\d+)*\#$').hasMatch(input);
 
     if (isValidUssd) {
+
+      await UssdController.instance.startSession();
+
       Get.generalDialog(
         barrierDismissible: true,
         barrierLabel: '',

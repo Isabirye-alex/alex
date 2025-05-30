@@ -1,4 +1,5 @@
 import 'package:africa/pages/ussdpage.dart';
+import 'package:africa/shared/dialogs/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../shared/widgets/agrilinkmenu.dart';
@@ -33,7 +34,7 @@ class TextController extends GetxController {
 
     switch (number.value) {
       case 1:
-        showTransparentDialog(McashMenu());
+        showTransparentDialog(UssdSimulator());
         break;
 
       case 2:
