@@ -23,8 +23,8 @@ class Contact {
   factory Contact.fromMap(Map<String, dynamic> map) {
     return Contact(
       id: map['id'] != null ? map['id'] as int : null,
-      phone: map['phone'] ?? '',
-      root: map['root'] ?? '',
+      phone: map['phone'],
+      root: map['root']
     );
   }
 }

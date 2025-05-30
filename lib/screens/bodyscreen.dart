@@ -3,8 +3,6 @@ import 'package:africa/pages/paymentspage.dart';
 import 'package:africa/pages/smspage.dart';
 import 'package:africa/pages/ussdpage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../features/register_contact_screen.dart';
 import '../pages/voicepage.dart';
 import '../shared/widgets/dotted.dart';
 import '../shared/widgets/ready.dart';
@@ -100,14 +98,6 @@ class SetupNumber extends StatelessWidget {
           Text('You need to set up a phone number', style: TextStyle(color: Colors.white),),
           GestureDetector(
               onTap: (){
-                Get.generalDialog(
-                    barrierDismissible: false,
-                    barrierLabel: '',
-                    barrierColor: Colors.transparent,
-                    transitionDuration: Duration(milliseconds: 300),
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return Center(child: RegisterContactScreen());
-                    });
               },
               child: Text('REGISTER', style: TextStyle(fontSize: 20, color: Colors.green),))
         ],

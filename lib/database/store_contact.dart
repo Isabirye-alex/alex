@@ -35,9 +35,11 @@ class PhoneNumber {
 
   Future<void> insertContact(Contact contact) async {
     final db = await database;
+    final map = contact.toMap();
+    print('Inserting contact: $map');
     await db.insert(
       'contacts',
-      contact.toMap(),
+      map,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -45,6 +47,7 @@ class PhoneNumber {
   Future<List<Contact>> getContact() async {
     final db = await database;
     final result = await db.query('contacts');
+    print('Contacts fetched from DB: $result');
     return result.map((map) => Contact.fromMap(map)).toList();
   }
 }
