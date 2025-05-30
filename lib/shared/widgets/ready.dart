@@ -20,7 +20,7 @@ class _ReadyWidgetState extends State<ReadyWidget> {
   }
 
   Future<void> loadContacts() async {
-    await contactProvider.loadContact(); // Ensure this updates contact list
+    await contactProvider.loadContact(showError: false); // Ensure this updates contact list
     setState(() {
       isLoading = false;
     });

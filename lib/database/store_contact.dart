@@ -25,6 +25,7 @@ class PhoneNumber {
           CREATE TABLE contacts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             phone TEXT NOT NULL,
+            root TEXT NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
         ''');

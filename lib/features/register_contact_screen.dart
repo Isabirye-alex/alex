@@ -88,17 +88,20 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                             return;
                           }
 
-                          Get.dialog(Center(child: CircularProgressIndicator()), barrierDismissible: false);
-                          await Future.delayed(Duration(seconds: 1));
-                          Get.back();
 
                           final userContact = inputController.phoneController.text.trim();
                           final countryCode = selectedCountry!.code;
 
                           try {
+
+                            Get.dialog(Center(child: CircularProgressIndicator()), barrierDismissible: false);
+                            await Future.delayed(Duration(seconds: 1));
+
+                            Get.back();
+
                             await contact.addContact(userContact, countryCode);
                             Navigator.of(context).pop();
-                            Get.snackbar('Success', 'Registration Successful',
+                             Get.snackbar('Success', 'Registration Successful',
                                 snackPosition: SnackPosition.BOTTOM,
                                 colorText: Colors.green,
                                 snackStyle: SnackStyle.FLOATING,

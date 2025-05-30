@@ -24,24 +24,33 @@ class ContactProvider extends GetxController {
         colorText: Colors.white,
         snackStyle: SnackStyle.FLOATING,
       );
+      Get.back();
     }
   }
 
-  Future<void> loadContact() async {
+
+  Future<void> loadContact({bool showError = true}) async {
     try {
       final fetchedContacts = await PhoneNumber.instance.getContact();
       _contacts.clear();
       _contacts.addAll(fetchedContacts);
-      update(); // Notify GetBuilder/Obx
+      update();
     } catch (e) {
-      Get.snackbar(
-        '',
-        '',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackStyle: SnackStyle.FLOATING,
-      );
+      if (showError) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Get.snackbar(
+            'Error',
+            'Failed to load contacts: $e',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            snackStyle: SnackStyle.FLOATING,
+          );
+        });
+      }
     }
   }
+
+
+
 }
