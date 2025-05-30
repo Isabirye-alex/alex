@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../features/register_contact_screen.dart';
 import '../pages/voicepage.dart';
-import '../widgets/dotted.dart';
-import '../widgets/ready.dart';
+import '../shared/widgets/dotted.dart';
+import '../shared/widgets/ready.dart';
 
 class BodyScreen extends StatefulWidget {
   const BodyScreen({super.key});

@@ -1,7 +1,7 @@
-import 'package:africa/widgets/pop1_text.dart';
+import 'package:africa/shared/widgets/pop1_text.dart';
 import 'package:flutter/material.dart';
-import '../controllers/text_controller.dart';
-import '../utilis/constants/text_strings.dart';
+import '../../controllers/text_controller.dart';
+import '../../utilis/constants/text_strings.dart';
 import 'package:get/get.dart';
 
 class PopupWidget1 extends StatefulWidget {

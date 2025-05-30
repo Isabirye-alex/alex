@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../features/insert_contact.dart';
+import '../../features/insert_contact.dart';
 
 class ReadyWidget extends StatefulWidget {
   const ReadyWidget({super.key});

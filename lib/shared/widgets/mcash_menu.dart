@@ -1,18 +1,18 @@
 import 'package:africa/pages/ussdpage.dart';
-import 'package:africa/widgets/mcash_text_field.dart';
+import 'package:africa/shared/widgets/mcash_text_field.dart';
 import 'package:flutter/material.dart';
-import '../controllers/text_controller.dart';
-import '../utilis/constants/text_strings.dart';
+import '../../controllers/text_controller.dart';
+import '../../utilis/constants/text_strings.dart';
 import 'package:get/get.dart';
 
-class FuelMenu extends StatefulWidget {
-  const FuelMenu({super.key});
+class McashMenu extends StatefulWidget {
+  const McashMenu({super.key});
 
   @override
-  State<FuelMenu> createState() => _FuelMenuState();
+  State<McashMenu> createState() => _McashMenuState();
 }
 
-class _FuelMenuState extends State<FuelMenu> {
+class _McashMenuState extends State<McashMenu> {
   final TextController controller = TextController.instance;
 
   @override
@@ -53,11 +53,10 @@ class _FuelMenuState extends State<FuelMenu> {
           onPressed: () => Get.to(()=> UssdPage()),
           child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () => controller.checkNumber2(),
           child: Text('SEND', style: TextStyle(color: Colors.blue)),
         )
-
       ],
     );
   }

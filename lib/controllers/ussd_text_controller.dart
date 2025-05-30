@@ -1,6 +1,7 @@
-import 'package:africa/widgets/popup_widget_1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../shared/widgets/popup_widget_1.dart';
 
 class UssdTextController extends GetxController {
   static UssdTextController get instance => Get.find();

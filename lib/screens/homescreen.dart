@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets.dart';
+import '../shared/widgets/widgets.dart';
 import 'bodyscreen.dart';
 
 class HomeScreen extends StatelessWidget {

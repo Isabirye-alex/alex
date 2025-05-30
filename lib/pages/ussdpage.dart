@@ -1,10 +1,10 @@
-import 'package:africa/features/register_contact_screen.dart';
-import 'package:africa/widgets/circular_container.dart';
+
 import 'package:flutter/material.dart';
 import '../screens/bodyscreen.dart';
+import '../shared/widgets/callbutton.dart';
+import '../shared/widgets/circular_container.dart';
 import '../utilis/constants/text_strings.dart';
-import '../widgets/callbutton.dart';
-import '../widgets/ussd_text_field.dart';
+import '../shared/widgets/ussd_text_field.dart';
 import 'package:get/get.dart';
 class UssdPage extends StatelessWidget {
   const UssdPage({super.key});

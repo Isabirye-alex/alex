@@ -1,18 +1,18 @@
 import 'package:africa/pages/ussdpage.dart';
-import 'package:africa/widgets/mcash_text_field.dart';
+import 'package:africa/shared/widgets/mcash_text_field.dart';
 import 'package:flutter/material.dart';
-import '../controllers/text_controller.dart';
-import '../utilis/constants/text_strings.dart';
+import '../../controllers/text_controller.dart';
+import '../../utilis/constants/text_strings.dart';
 import 'package:get/get.dart';
 
-class AgriMenu extends StatefulWidget {
-  const AgriMenu({super.key});
+class FuelMenu extends StatefulWidget {
+  const FuelMenu({super.key});
 
   @override
-  State<AgriMenu> createState() => _AgriMenuState();
+  State<FuelMenu> createState() => _FuelMenuState();
 }
 
-class _AgriMenuState extends State<AgriMenu> {
+class _FuelMenuState extends State<FuelMenu> {
   final TextController controller = TextController.instance;
 
   @override

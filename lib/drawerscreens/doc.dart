@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/docbody.dart';
+import '../shared/widgets/docbody.dart';
 
 class Doc extends StatelessWidget {
   const Doc({super.key});

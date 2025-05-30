@@ -1,5 +1,5 @@
 import 'package:africa/screens/secondshape.dart';
-import 'package:africa/widgets/tutorialscontainer.dart';
+import 'package:africa/shared/widgets/tutorialscontainer.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_shape.dart';

@@ -1,9 +1,9 @@
 import 'package:africa/pages/ussdpage.dart';
-import 'package:africa/widgets/mcash_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../widgets/agrilinkmenu.dart';
-import '../widgets/fuel_menu.dart';
+import '../shared/widgets/agrilinkmenu.dart';
+import '../shared/widgets/fuel_menu.dart';
+import '../shared/widgets/mcash_menu.dart';
 
 
 class TextController extends GetxController {
