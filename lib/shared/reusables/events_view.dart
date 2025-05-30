@@ -18,7 +18,29 @@ Future<void> openDialog(BuildContext context){
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
+                  Container(
+                    padding: EdgeInsets.all(6),
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 04,
+                          offset: Offset(10, 4)
+                        )
+                      ]
+                    ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width *0.85,
+                      height: 140,
+                      child: Column(
+                        children: [
+                          Row()
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

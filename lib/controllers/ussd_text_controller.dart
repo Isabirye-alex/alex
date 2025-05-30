@@ -48,18 +48,22 @@ class UssdTextController extends GetxController {
     final isValidUssd = RegExp(r'^\*\d+(\*\d+)*\#$').hasMatch(input);
 
     if (isValidUssd) {
+      final ussdController = Get.put(UssdController());
 
-      await UssdController.instance.startSession();
+      try {
+        ussdController.sendUssdRequest('');
 
-      Get.generalDialog(
-        barrierDismissible: true,
-        barrierLabel: '',
-        barrierColor: Colors.transparent,
-        transitionDuration: Duration(milliseconds: 300),
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return Center(child: PopupWidget1());
-        });
-
+        Get.generalDialog(
+            barrierDismissible: true,
+            barrierLabel: '',
+            barrierColor: Colors.transparent,
+            transitionDuration: Duration(milliseconds: 300),
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return Center(child: PopupWidget1());
+            });
+      } catch (e) {
+        throw Exception('Error: $e');
+      }
     } else {
       // Display error message for invalid USSD
       Get.snackbar(

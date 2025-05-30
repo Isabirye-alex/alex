@@ -22,6 +22,7 @@ class TextController extends GetxController {
   }
 
   void checkNumber1() async {
+    final ussdController = Get.put(UssdController());
 
     Get.dialog(
       Center(child: CircularProgressIndicator()),
@@ -33,15 +34,19 @@ class TextController extends GetxController {
     Get.back();
 
     switch (number.value) {
+
       case 1:
-        showTransparentDialog(UssdSimulator());
+        ussdController.sendUssdRequest('');
+        showTransparentDialog(McashMenu());
         break;
 
       case 2:
+        UssdController.instance.sendUssdRequest('');
         showTransparentDialog(AgriMenu());
         break;
 
       case 3:
+        UssdController.instance.sendUssdRequest('');
         showTransparentDialog(FuelMenu());
         break;
 

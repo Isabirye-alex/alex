@@ -5,7 +5,6 @@ import '../shared/widgets/callbutton.dart';
 import '../shared/widgets/circular_container.dart';
 import '../utilis/constants/text_strings.dart';
 import '../shared/widgets/ussd_text_field.dart';
-import 'package:get/get.dart';
 class UssdPage extends StatelessWidget {
   const UssdPage({super.key});
 

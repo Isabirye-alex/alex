@@ -20,7 +20,6 @@ class CallButton extends StatelessWidget {
 
 
         Get.back();
-
         controller.checkCode();
       },
       child: Container(
