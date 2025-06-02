@@ -1,8 +1,10 @@
+import 'package:africa/features/domain/classes/ussd_view_object.dart';
 import 'package:africa/shared/dialogs/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../shared/widgets/popup_widget_1.dart';
+import '../features/domain/classes/view_widget_model.dart';
+
 
 class UssdTextController extends GetxController {
   static UssdTextController get instance => Get.find();
@@ -51,7 +53,7 @@ class UssdTextController extends GetxController {
       final ussdController = Get.put(UssdController());
 
       try {
-        ussdController.sendUssdRequest('');
+        // ussdController.sendUssdRequest('');
 
         Get.generalDialog(
             barrierDismissible: true,
@@ -59,7 +61,7 @@ class UssdTextController extends GetxController {
             barrierColor: Colors.transparent,
             transitionDuration: Duration(milliseconds: 300),
             pageBuilder: (context, animation, secondaryAnimation) {
-              return Center(child: PopupWidget1());
+              return Center(child: ViewWidget());
             });
       } catch (e) {
         throw Exception('Error: $e');
@@ -75,6 +77,5 @@ class UssdTextController extends GetxController {
       );
     }
   }
-
 
 }
