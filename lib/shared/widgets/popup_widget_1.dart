@@ -6,14 +6,11 @@ import 'package:get/get.dart';
 
 class PopupWidget1 extends StatefulWidget {
   const PopupWidget1({super.key});
-
   @override
   State<PopupWidget1> createState() => _PopupWidget1State();
 }
-
 class _PopupWidget1State extends State<PopupWidget1> {
   final controller = Get.put(TextController());
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

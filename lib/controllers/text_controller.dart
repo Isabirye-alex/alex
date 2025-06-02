@@ -1,5 +1,4 @@
 import 'package:africa/pages/ussdpage.dart';
-import 'package:africa/shared/dialogs/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../shared/widgets/agrilinkmenu.dart';
@@ -41,23 +40,16 @@ class TextController extends GetxController {
         break;
 
       case 2:
-        // UssdController.instance.sendUssdRequest('');
         showTransparentDialog(AgriMenu());
         break;
 
       case 3:
-        // UssdController.instance.sendUssdRequest('');
         showTransparentDialog(FuelMenu());
         break;
 
       case 0:
         Get.to(() => Page); // Replace with actual widget
         break;
-
-      // case 00:
-      //   Get.to(() => UssdPage());
-        // break;
-
       default:
         Get.snackbar(
           '',
@@ -68,17 +60,13 @@ class TextController extends GetxController {
         );
     }
   }
-
   void checkNumber2() async {
     Get.dialog(
       Center(child: CircularProgressIndicator()),
       barrierDismissible: false,
     );
-
     await Future.delayed(Duration(seconds: 2));
-
     Get.back();
-
     switch (number.value) {
       case 1:
         showTransparentDialog(McashMenu());
@@ -104,7 +92,6 @@ class TextController extends GetxController {
         );
     }
   }
-
   void showTransparentDialog(Widget child) {
     Get.generalDialog(
       barrierDismissible: true,

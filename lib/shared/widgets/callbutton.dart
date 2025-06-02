@@ -4,21 +4,15 @@ import 'package:get/get.dart';
 
 class CallButton extends StatelessWidget {
   const CallButton({super.key});
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UssdTextController());
     return GestureDetector(
       onTap: () async {
-
         Get.dialog(
           Center(child: CircularProgressIndicator()),
-          barrierDismissible: false,
-        );
-
+          barrierDismissible: false);
         await Future.delayed(Duration(seconds: 2));
-
-
         Get.back();
         controller.checkCode();
       },
