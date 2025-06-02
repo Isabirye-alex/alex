@@ -8,15 +8,20 @@ class ViewWidget extends StatefulWidget {
   @override
   State<ViewWidget> createState() => _ViewWidgetState();
 }
+
 class _ViewWidgetState extends State<ViewWidget> {
+  String userInput = '';
+  final TextEditingController inputController = TextEditingController();
+  String sessionText = '';
   late Future<UssdViewObject> _futureResults;
   @override
   void initState() {
     super.initState();
-    _futureResults = sendUssdRequestWithResponse('');
+    sessionText = inputController.text.trim();
+    _futureResults = sendUssdRequestWithResponse(sessionText);
   }
+
   Future<UssdViewObject> sendUssdRequestWithResponse(String userInput) async {
-    String sessionText = '';
     try {
       final response = await http.post(
         Uri.parse('https://newtest.mcash.ug/wallet/api/client/ussd'),
@@ -26,14 +31,18 @@ class _ViewWidgetState extends State<ViewWidget> {
         },
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
-        return UssdViewObject.fromUssdString(response.body, phoneNumber: '+256706432259');
+        return UssdViewObject.fromUssdString(
+          response.body,
+          phoneNumber: '+256706432259',
+        );
       } else {
         throw Exception('Failed to connect. Status: ${response.statusCode}');
       }
-    } catch(e) {
-  throw Exception('Error:$e');
+    } catch (e) {
+      throw Exception('Error:$e');
+    }
   }
-}
+
   FutureBuilder<UssdViewObject> buildFutureBuilder() {
     return FutureBuilder<UssdViewObject>(
       future: _futureResults,
@@ -48,39 +57,82 @@ class _ViewWidgetState extends State<ViewWidget> {
         } else if (snapshot.hasData) {
           final ussdObject = snapshot.data!;
           return Column(
-               children: [
-                 Flexible(
-                   child: ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        itemCount: ussdObject.options?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          if (ussdObject.options == null || index >= ussdObject.options!.length) {
-                            return const ListTile(title: Text('No options available'));
-                          }
-                          final option = ussdObject.options![index];
-                          return ListTile(
-                            dense: true,
-                            visualDensity: VisualDensity(vertical: -4),
-                            title: Text(option, style: TextStyle(fontSize: 16)),
-                            onTap: () {},
-                          );
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount: ussdObject.options?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    if (ussdObject.options == null ||
+                        index >= ussdObject.options!.length) {
+                      return const ListTile(
+                        title: Text('No options available'),
+                      );
+                    }
+                    final option = ussdObject.options![index];
+                    return ListTile(
+                      dense: true,
+                      visualDensity: VisualDensity(vertical: -4),
+                      title: Text(option, style: TextStyle(fontSize: 16)),
+                      onTap: () {},
+                    );
+                  },
+                ),
+              ),
+               Container(
+                 margin: EdgeInsets.only(left: 16, right: 16),
+                 padding: EdgeInsets.only(left: 16, right: 16),
+                 child: TextField(
+                    controller: inputController,
+                    decoration: InputDecoration(),
+                    maxLines: 1,
+                  ),
+               ),
+               Container(
+                 padding: EdgeInsets.only(left: 16, right: 16),
+                 margin: EdgeInsets.only(left: 16, right: 24),
+                 child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Get.back(),
+                        child: const Text(
+                          'CANCEL',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            final currentInput = inputController.text.trim();
+                            if (currentInput.isNotEmpty) {
+                              setState(() {
+                                sessionText =
+                                    sessionText.isEmpty
+                                        ? currentInput
+                                        : '$sessionText*$currentInput';
+                                _futureResults = sendUssdRequestWithResponse(
+                                  sessionText,
+                                );
+                                inputController.clear();
+                              });
+                              print('Full sessionText: $sessionText');
+                            }
+                          });
                         },
-                   ),
-                 ),
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () => Get.back(),
-                      child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
-                    ),
-                    TextButton(
-                      onPressed: (){},
-                      child: const Text('SEND', style: TextStyle(color: Colors.blue)),
-                    ),
-                  ],
-              )
+                        child: const Text(
+                          'SEND',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ],
+                  ),
+               ),
             ],
           );
         } else {
@@ -91,34 +143,30 @@ class _ViewWidgetState extends State<ViewWidget> {
   }
 
   @override
-    Widget build(BuildContext context) {
-      return Container(
-        height: MediaQuery.of(context).size.height*0.7,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(70),
-              blurRadius: 8,
-              offset: Offset(0, 4), // X, Y offset
-            ),
-          ],
-        ),
-        child: Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          insetPadding: const EdgeInsets.all(20), // Controls space around the dialog
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height*0.54,
-              width: MediaQuery.of(context).size.width * 0.9, // Custom width
-              child: Material(
-                child: buildFutureBuilder(),
-              ),
-            ),
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(70),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        insetPadding: const EdgeInsets.all(
+          20,
+        ), // Controls space around the dialog
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9, // Custom width
+            child: Material(child: buildFutureBuilder()),
           ),
         ),
-      );
-    }
-
+      ),
+    );
+  }
 }
-

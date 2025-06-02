@@ -55,5 +55,4 @@ class UssdTextController extends GetxController {
       );
     }
   }
-
 }
