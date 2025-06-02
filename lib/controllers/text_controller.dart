@@ -22,7 +22,7 @@ class TextController extends GetxController {
   }
 
   void checkNumber1() async {
-    final ussdController = Get.put(UssdController());
+    // final ussdController = Get.put(UssdController());
 
     Get.dialog(
       Center(child: CircularProgressIndicator()),
@@ -36,17 +36,17 @@ class TextController extends GetxController {
     switch (number.value) {
 
       case 1:
-        ussdController.sendUssdRequest('');
+        // ussdController.sendUssdRequestWit('');
         showTransparentDialog(McashMenu());
         break;
 
       case 2:
-        UssdController.instance.sendUssdRequest('');
+        // UssdController.instance.sendUssdRequest('');
         showTransparentDialog(AgriMenu());
         break;
 
       case 3:
-        UssdController.instance.sendUssdRequest('');
+        // UssdController.instance.sendUssdRequest('');
         showTransparentDialog(FuelMenu());
         break;
 
@@ -54,9 +54,9 @@ class TextController extends GetxController {
         Get.to(() => Page); // Replace with actual widget
         break;
 
-      case 00:
-        Get.to(() => UssdPage());
-        break;
+      // case 00:
+      //   Get.to(() => UssdPage());
+        // break;
 
       default:
         Get.snackbar(

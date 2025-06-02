@@ -1,9 +1,6 @@
 import 'package:africa/controllers/ussd_text_controller.dart';
-import 'package:africa/features/domain/classes/ussd_view_object.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import '../../controllers/text_controller.dart';
-import 'dart:convert';
 
 class UssdController extends GetxController {
   static UssdController get instance => Get.find();
@@ -32,6 +29,5 @@ class UssdController extends GetxController {
   //     print(e.toString());
   //   }
   // }
-
 
 }
