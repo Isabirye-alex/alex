@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../shared/reusables/countries_widget.dart';
+import 'register_screen.dart';
 
 void showRegisterDialog(BuildContext context) {
   showDialog(
@@ -7,12 +7,13 @@ void showRegisterDialog(BuildContext context) {
     barrierDismissible: false,
     barrierColor: Colors.black.withAlpha(70),
     builder: (BuildContext context) {
-      return const RegisterDialog();
+      return const PopUpDialog();
     },
   );
 }
-class RegisterDialog extends StatelessWidget {
-  const RegisterDialog({super.key});
+class PopUpDialog extends StatelessWidget {
+  const PopUpDialog({super.key, this.child});
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -25,7 +26,7 @@ class RegisterDialog extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.9,
           ),
-          child: RegisterScreen(),
+          child: child,
         ),
       ),
     );

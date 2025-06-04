@@ -1,4 +1,4 @@
-import 'package:africa/controllers/ussd_text_controller.dart';
+import 'package:africa/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

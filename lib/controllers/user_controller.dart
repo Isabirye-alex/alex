@@ -1,4 +1,5 @@
-import 'package:africa/features/domain/classes/register_dialog.dart';
+import 'package:africa/shared/reusables/register_dialog.dart';
+import 'package:africa/shared/reusables/register_screen.dart';
 import 'package:countries/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,17 +8,43 @@ import '../features/auth/user_view.dart';
 import '../features/domain/classes/view_widget_model.dart';
 import 'countries_controller.dart';
 
+
 class UserController extends GetxController {
-  late CountriesController countriesController;
   final  country = Country();
   static UserController get instance => Get.find();
   late final TextEditingController phoneController = TextEditingController();
+  var displayText = 'Loading...'.obs;
 
-  void handleContactRegistration() async {
+  @override
+  void onInit() {
+    super.onInit();
+    loadPhoneNumber();
+  }
+
+  Future<void> loadPhoneNumber() async {
+    try {
+      final users = await UserDatabase.instance.getUsers();
+      if (users.isNotEmpty) {
+        final code = '+${users.first.code}';
+        final number = users.first.phoneNumber;
+        displayText.value = '$code $number';
+      } else {
+        displayText.value = 'Ready!';
+      }
+    }  catch (e, stacktrace) {
+  debugPrint('Error loading phone number: $e');
+  debugPrint('Stack trace: $stacktrace');
+  displayText.value = 'Ready!';
+}
+
+}
+  void handleContactRegistration(BuildContext context) async {
+    final countryController = Get.put(CountriesController());
     final phone = phoneController.text.trim();
     if (phone.isNotEmpty) {
       final user = UserView(
         id: 1,
+        code: countryController.country.value?.phoneCode ?? '',
         phoneNumber: phone,
       );
       await UserDatabase.instance.insertOrUpdateUser(user);
@@ -25,9 +52,17 @@ class UserController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 4),
           backgroundColor: Colors.orange,
-          colorText: Colors.white
+          colorText: Colors.white,
       );
-      Get.back();
+      print("Saving user with code: ${user.code}, phone: ${user.phoneNumber}");
+      Navigator.of(context).pop();
+
+    } else if(phone.isEmpty) {
+      Get.snackbar('Warning', 'Enter a valid phone number',
+      snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.amber,
+        colorText: Colors.white
+      );
     } else {
       Get.snackbar('Error', 'Phone number cannot be empty',
           snackPosition: SnackPosition.BOTTOM,
@@ -44,37 +79,17 @@ class UserController extends GetxController {
     // Check if any user has a non-empty phone number
     final hasPhone = users.any((u) => u.phoneNumber.trim().isNotEmpty);
 
-    if (hasPhone) {
-      void checkUserStatus(BuildContext context) async {
-        List<UserView> users = await UserDatabase.instance.getUsers();
-
-        final hasPhone = users.any((u) => u.phoneNumber.trim().isNotEmpty);
-
         if (hasPhone) {
           Get.dialog(
-            Dialog(
-              backgroundColor: Colors.transparent,
-              insetPadding: EdgeInsets.all(16),
-              child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ViewWidget(), // Show as popup
-              ),
-            ),
+            PopUpDialog(child: ViewWidget()),
             barrierDismissible: false,
-            barrierColor: Colors.black.withAlpha(70),
           );
         }
         else {
           Get.dialog(
-            RegisterDialog(),
+            PopUpDialog(child: RegisterScreen()),
             barrierDismissible: false,
           );
         }
       }
   }
-}
-}

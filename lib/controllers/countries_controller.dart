@@ -2,9 +2,21 @@ import 'package:countries/countries.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 //Controller to handle injection of the country picker into calling widgets
+import 'package:countries/countries.dart';
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+
 class CountriesController extends GetxController {
   static CountriesController get instance => Get.find();
+
   var country = Rxn<Country>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    country.value = CountriesRepo.getCountryByPhoneCode('90'); // Default to Turkey
+  }
+
   void showCountryPickerDialog(BuildContext context) async {
     final selected = await showDialog<Country>(
       context: context,
@@ -26,13 +38,12 @@ class CountriesController extends GetxController {
                 onChanged: (value) {
                   setState(() {
                     query = value.toLowerCase();
-                    filteredList =
-                        CountriesRepo.countryList.where((c) => c.name.toLowerCase().contains(query) || c.phoneCode.contains(query),).toList();
+                    filteredList = CountriesRepo.countryList.where((c) => c.name.toLowerCase().contains(query) || c.phoneCode.contains(query)).toList();
                   });
                 },
               ),
               content: SizedBox(
-                width: double.maxFinite,
+                width: MediaQuery.of(context).size.width * 0.9,
                 height: 400,
                 child: ListView.builder(
                   itemCount: filteredList.length,
@@ -54,8 +65,10 @@ class CountriesController extends GetxController {
         );
       },
     );
+
     if (selected != null) {
       country.value = selected;
     }
   }
 }
+

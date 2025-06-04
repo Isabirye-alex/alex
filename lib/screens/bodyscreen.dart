@@ -1,4 +1,4 @@
-import 'package:africa/controllers/ussd_text_controller.dart';
+import 'package:africa/controllers/user_controller.dart';
 import 'package:africa/pages/airtimepage.dart';
 import 'package:africa/pages/paymentspage.dart';
 import 'package:africa/pages/smspage.dart';
@@ -65,7 +65,6 @@ class _BodyScreenState extends State<BodyScreen> {
             ),
           ),
         ),
-        SetupNumber(),
       ],
     );
   }
@@ -87,26 +86,4 @@ class _BodyScreenState extends State<BodyScreen> {
   }
 }
 
-class SetupNumber extends StatelessWidget {
-  const SetupNumber({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width*1,
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(color: Colors.grey[800]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('You need to set up a phone number', style: TextStyle(color: Colors.white),),
-          GestureDetector(
-              onTap: (){
-              },
-              child: Text('REGISTER', style: TextStyle(fontSize: 20, color: Colors.green),))
-        ],
-      ),
-    );
-  }
-}
 

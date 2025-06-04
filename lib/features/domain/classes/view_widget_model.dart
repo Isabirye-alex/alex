@@ -143,29 +143,10 @@ class _ViewWidgetState extends State<ViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(70),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        insetPadding: const EdgeInsets.all(
-          20,
-        ), // Controls space around the dialog
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9, // Custom width
-            child: Material(child: buildFutureBuilder()),
-          ),
-        ),
-      ),
+    return Padding(
+        padding: EdgeInsets.zero,
+        child: buildFutureBuilder(),
     );
   }
+
 }

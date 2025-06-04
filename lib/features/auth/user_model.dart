@@ -26,8 +26,7 @@ class UserDatabase {
     await db.execute('''
       CREATE TABLE users (
         id INTEGER PRIMARY KEY,
-        name TEXT,
-        age INTEGER,
+        code Text NULL,
         phoneNumber TEXT UNIQUE
       )
     ''');
@@ -85,7 +84,7 @@ class UserDatabase {
   Future<void> updateDog(UserView user) async {
     final db = await database;
     await db.update(
-      'dogs',
+      'users',
       user.toMap(),
       where: 'id = ?',
       whereArgs: [user.id],
