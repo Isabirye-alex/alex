@@ -112,8 +112,7 @@ class _ViewWidgetState extends State<ViewWidget> {
                             final currentInput = inputController.text.trim();
                             if (currentInput.isNotEmpty) {
                               setState(() {
-                                sessionText =
-                                    sessionText.isEmpty
+                                sessionText = sessionText.isEmpty
                                         ? currentInput
                                         : '$sessionText*$currentInput';
                                 _futureResults = sendUssdRequestWithResponse(

@@ -14,7 +14,7 @@ class CallButton extends StatelessWidget {
           barrierDismissible: false);
         await Future.delayed(Duration(seconds: 2));
         Get.back();
-        controller.checkCode();
+        controller.checkUserStatus();
       },
       child: Container(
         height: 35,
