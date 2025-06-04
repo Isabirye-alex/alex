@@ -2,9 +2,6 @@ import 'package:countries/countries.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 //Controller to handle injection of the country picker into calling widgets
-import 'package:countries/countries.dart';
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 class CountriesController extends GetxController {
   static CountriesController get instance => Get.find();

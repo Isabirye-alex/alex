@@ -1,5 +1,4 @@
 import 'package:africa/features/domain/classes/view_widget_model.dart';
-import 'package:africa/pages/ussdpage.dart';
 import 'package:africa/shared/widgets/mcash_text_field.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/text_controller.dart';

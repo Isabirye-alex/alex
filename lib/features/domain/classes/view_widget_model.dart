@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
+import '../../../shared/dialogs/time_dialog_controller.dart';
+
 class ViewWidget extends StatefulWidget {
   const ViewWidget({super.key});
   @override
@@ -44,6 +46,8 @@ class _ViewWidgetState extends State<ViewWidget> {
   }
 
   FutureBuilder<UssdViewObject> buildFutureBuilder() {
+    final timerController = Get.put(TimerDialogController());
+    timerController.startTimer();
     return FutureBuilder<UssdViewObject>(
       future: _futureResults,
       builder: (context, snapshot) {
@@ -108,18 +112,26 @@ class _ViewWidgetState extends State<ViewWidget> {
                       ),
                       TextButton(
                         onPressed: () {
+                          final timerController = Get.find<TimerDialogController>();
+
+                          if (!timerController.isWithinAllowedTime()) {
+                            Get.back(); // Close dialog (optional)
+                            Get.snackbar(
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: Duration(seconds: 2),
+                              "Session expired",
+                              "Please repeat the operation.",
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                            return;
+                          }
                           setState(() {
                             final currentInput = inputController.text.trim();
                             if (currentInput.isNotEmpty) {
-                              setState(() {
-                                sessionText = sessionText.isEmpty
-                                        ? currentInput
-                                        : '$sessionText*$currentInput';
-                                _futureResults = sendUssdRequestWithResponse(
-                                  sessionText,
-                                );
-                                inputController.clear();
-                              });
+                              sessionText = sessionText.isEmpty ? currentInput : '$sessionText*$currentInput';
+                              _futureResults = sendUssdRequestWithResponse(sessionText);
+                              inputController.clear();
                               print('Full sessionText: $sessionText');
                             }
                           });
@@ -129,6 +141,7 @@ class _ViewWidgetState extends State<ViewWidget> {
                           style: TextStyle(color: Colors.blue),
                         ),
                       ),
+
                     ],
                   ),
                ),

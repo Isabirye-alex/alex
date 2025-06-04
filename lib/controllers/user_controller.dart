@@ -54,9 +54,7 @@ class UserController extends GetxController {
           backgroundColor: Colors.orange,
           colorText: Colors.white,
       );
-      print("Saving user with code: ${user.code}, phone: ${user.phoneNumber}");
       Navigator.of(context).pop();
-
     } else if(phone.isEmpty) {
       Get.snackbar('Warning', 'Enter a valid phone number',
       snackPosition: SnackPosition.BOTTOM,
@@ -78,7 +76,6 @@ class UserController extends GetxController {
 
     // Check if any user has a non-empty phone number
     final hasPhone = users.any((u) => u.phoneNumber.trim().isNotEmpty);
-
         if (hasPhone) {
           Get.dialog(
             PopUpDialog(child: ViewWidget()),
@@ -92,4 +89,53 @@ class UserController extends GetxController {
           );
         }
       }
+
+  Future<void> updateUserPhoneNumber(BuildContext context) async {
+    final countryController = Get.put(CountriesController());
+    final phone = phoneController.text.trim();
+
+    if (phone.isEmpty) {
+      Get.snackbar(
+        'Warning',
+        'Phone number cannot be empty',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    final user = UserView(
+      id: 1,
+      code: countryController.country.value?.phoneCode ?? '',
+      phoneNumber: phone,
+    );
+
+    try {
+      await UserDatabase.instance.updateUser(user);
+      displayText.value = '+${user.code} ${user.phoneNumber}'; // Update UI
+
+      Get.snackbar(
+        'Updated',
+        'Phone number updated successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+      Navigator.of(context).pop(); // Optionally close dialog/screen
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to update number: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
+
+
+
+
+}

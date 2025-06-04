@@ -43,12 +43,12 @@ class UserDatabase {
 
     if (existing.isNotEmpty) {
       Get.snackbar(
-          'Phone Number already registered',
-          'You can continue to the next screen',
+          'Warning',
+          'A phone number already exists for your account',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,
-          duration: Duration(seconds: 4),
+          duration: Duration(seconds: 6),
           isDismissible: true,
           forwardAnimationCurve: Curves.easeOutBack,
           icon: Icon(Icons.check, color: Colors.white),
@@ -81,7 +81,7 @@ class UserDatabase {
     await db.delete('users', where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<void> updateDog(UserView user) async {
+  Future<void> updateUser(UserView user) async {
     final db = await database;
     await db.update(
       'users',

@@ -2,7 +2,6 @@ import 'package:africa/controllers/user_controller.dart';
 import 'package:africa/pages/airtimepage.dart';
 import 'package:africa/pages/paymentspage.dart';
 import 'package:africa/pages/smspage.dart';
-import 'package:africa/pages/ussdpage.dart';
 import 'package:flutter/material.dart';
 import '../pages/voicepage.dart';
 import '../shared/widgets/dotted.dart';

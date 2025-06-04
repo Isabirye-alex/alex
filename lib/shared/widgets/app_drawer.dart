@@ -1,5 +1,9 @@
+import 'package:africa/controllers/user_controller.dart';
 import 'package:africa/drawerscreens/doc.dart';
+import 'package:africa/features/auth/change_number.dart';
+import 'package:africa/shared/reusables/register_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
     super.key,
@@ -7,6 +11,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final changeNumberController = Get.put(UserController());
     return Drawer(
       width: 280,
       child: ListView(
@@ -38,8 +43,19 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.compare_arrows_sharp, color: Colors.orange[600]),
             title: Text('Change Number'),
-            onTap: (){
-              Navigator.pop(context);
+            onTap: () async{
+              Navigator.of(context).pop(); // 👈 This closes the Drawer first
+              await Future.delayed(Duration(milliseconds: 200));
+              Get.generalDialog(
+                barrierColor: Colors.black.withAlpha(70),
+                barrierDismissible: false,
+                barrierLabel: "Change Number",
+                transitionDuration: const Duration(milliseconds: 300),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return PopUpDialog(child: ChangeNumber());
+                },
+              );
+
             },
 
           ),

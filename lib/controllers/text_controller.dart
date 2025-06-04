@@ -1,5 +1,4 @@
 import 'package:africa/features/domain/classes/view_widget_model.dart';
-import 'package:africa/pages/ussdpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../shared/widgets/agrilinkmenu.dart';
