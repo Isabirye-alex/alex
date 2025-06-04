@@ -48,6 +48,7 @@ class UserController extends GetxController {
         phoneNumber: phone,
       );
       await UserDatabase.instance.insertOrUpdateUser(user);
+      displayText.value = '+${user.code} ${user.phoneNumber}';
       Get.snackbar('User saved successfully', 'You can now continue',
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 4),
@@ -105,8 +106,21 @@ class UserController extends GetxController {
       return;
     }
 
+    // Get existing user
+    final users = await UserDatabase.instance.getUsers();
+    if (users.isEmpty || users.first.phoneNumber.trim().isEmpty) {
+      Get.snackbar(
+        'Not Registered',
+        'Please! First register a phone number to continue.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+      phoneController.clear();
+      Navigator.of(context).pop();
+    }
     final user = UserView(
-      id: 1,
+      id: users.first.id,
       code: countryController.country.value?.phoneCode ?? '',
       phoneNumber: phone,
     );
@@ -123,7 +137,8 @@ class UserController extends GetxController {
         colorText: Colors.white,
       );
 
-      Navigator.of(context).pop(); // Optionally close dialog/screen
+      phoneController.clear();
+      Navigator.of(context).pop(); // Close dialog
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -134,8 +149,6 @@ class UserController extends GetxController {
       );
     }
   }
-
-
 
 
 }
