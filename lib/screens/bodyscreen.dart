@@ -1,3 +1,4 @@
+import 'package:africa/controllers/ussd_text_controller.dart';
 import 'package:africa/pages/airtimepage.dart';
 import 'package:africa/pages/paymentspage.dart';
 import 'package:africa/pages/smspage.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../pages/voicepage.dart';
 import '../shared/widgets/dotted.dart';
 import '../shared/widgets/ready.dart';
+import 'package:get/get.dart';
 
 class BodyScreen extends StatefulWidget {
   const BodyScreen({super.key});
@@ -17,6 +19,7 @@ class BodyScreen extends StatefulWidget {
 class _BodyScreenState extends State<BodyScreen> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return Column(
       children: [
         Expanded(
@@ -34,7 +37,8 @@ class _BodyScreenState extends State<BodyScreen> {
                     DottedContainer(getIcon: Icons.dialpad,
                         getText: 'USSD',
                         screen: 0.40,
-                        child: UssdPage()),
+                        onTap: ()=> controller.checkUserStatus(),
+                    ),
                   ],
                 ),
                 Row(

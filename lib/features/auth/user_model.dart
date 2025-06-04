@@ -4,10 +4,10 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class UserDatabase {
   static final UserDatabase instance = UserDatabase._init();
   static Database? _database;
-
   UserDatabase._init();
 
   Future<Database> get database async {
@@ -22,7 +22,6 @@ class UserDatabase {
 
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
-
   Future _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE users (
@@ -33,7 +32,6 @@ class UserDatabase {
       )
     ''');
   }
-
   Future<void> insertOrUpdateUser(UserView user) async {
     final db = await instance.database;
 
@@ -47,10 +45,16 @@ class UserDatabase {
     if (existing.isNotEmpty) {
       Get.snackbar(
           'Phone Number already registered',
-          'You can continue to the next screen'
-      );
+          'You can continue to the next screen',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: Duration(seconds: 4),
+          isDismissible: true,
+          forwardAnimationCurve: Curves.easeOutBack,
+          icon: Icon(Icons.check, color: Colors.white),
 
-      // Assume user agrees (in real app: prompt UI confirmation)
+      );
       await db.update(
         'users',
         user.toMap(),
@@ -61,7 +65,7 @@ class UserDatabase {
       await db.insert(
         'users',
         user.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.abort, // to enforce uniqueness
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
     }
   }
@@ -77,4 +81,15 @@ class UserDatabase {
     final db = await instance.database;
     await db.delete('users', where: 'id = ?', whereArgs: [id]);
   }
+
+  Future<void> updateDog(UserView user) async {
+    final db = await database;
+    await db.update(
+      'dogs',
+      user.toMap(),
+      where: 'id = ?',
+      whereArgs: [user.id],
+    );
+  }
+
 }

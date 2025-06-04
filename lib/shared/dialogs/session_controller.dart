@@ -4,7 +4,7 @@ import '../../controllers/text_controller.dart';
 
 class UssdController extends GetxController {
   static UssdController get instance => Get.find();
-  final sessionController = Get.put(UssdTextController());
+  final sessionController = Get.put(UserController());
   final inputController = Get.put(TextController());
   final sessionLogs = <String>[];
   String sessionText = '';

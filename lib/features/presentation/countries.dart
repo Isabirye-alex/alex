@@ -1,3 +1,4 @@
+import 'package:africa/controllers/ussd_text_controller.dart';
 import 'package:countries/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class CountriesModelState extends State<CountriesModel> {
         centerTitle: true,
         title: Text('Register Phone Number'),
       ),
-      body: CountriesWidget(countriesController: countriesController, country: country),
+      body: RegisterScreen(),
     );
   }
 }

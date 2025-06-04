@@ -1,3 +1,4 @@
+import 'package:africa/features/domain/classes/view_widget_model.dart';
 import 'package:africa/pages/ussdpage.dart';
 import 'package:africa/shared/widgets/mcash_text_field.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _AgriMenuState extends State<AgriMenu> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Get.to(()=> UssdPage()),
+          onPressed: () => Get.to(()=> ViewWidget()),
           child: const Text('CANCEL', style: TextStyle(color: Colors.red)),
         ),
         ElevatedButton(

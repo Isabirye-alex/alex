@@ -2,12 +2,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class DottedContainer extends StatelessWidget {
-  const DottedContainer({super.key, required this.getIcon, required this.getText,this.screen, this.child});
+  const DottedContainer({super.key, required this.getIcon, required this.getText,this.screen, this.child, this.onTap});
 
   final IconData getIcon;
   final String getText;
   final double? screen;
   final Widget? child;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,7 @@ class DottedContainer extends StatelessWidget {
         ),
 
         child:GestureDetector(
-          onTap: (){
-            Navigator.push(context,
-                MaterialPageRoute(
-                    builder: (context) => child!
-                )
-            );
-          },
+          onTap: onTap,
           child: Column(
               children: [
                 DottedBorder(

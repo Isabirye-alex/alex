@@ -6,7 +6,7 @@ class CallButton extends StatelessWidget {
   const CallButton({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UssdTextController());
+    final controller = Get.put(UserController());
     return GestureDetector(
       onTap: () async {
         Get.dialog(

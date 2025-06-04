@@ -1,3 +1,4 @@
+import 'package:africa/features/domain/classes/view_widget_model.dart';
 import 'package:africa/pages/ussdpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,9 +79,9 @@ class TextController extends GetxController {
         showTransparentDialog(FuelMenu());
         break;
       case 0:
-        showTransparentDialog(UssdPage());
+        showTransparentDialog(ViewWidget());
       case 00:
-        showTransparentDialog(UssdPage());
+        showTransparentDialog(ViewWidget());
         break;
       default:
         Get.snackbar(
