@@ -73,23 +73,60 @@ class UserController extends GetxController {
   }
 
   void checkUserStatus() async {
+    // Step 1: Check if the user has a phone number
     List<UserView> users = await UserDatabase.instance.getUsers();
-
-    // Check if any user has a non-empty phone number
     final hasPhone = users.any((u) => u.phoneNumber.trim().isNotEmpty);
-        if (hasPhone) {
-          Get.dialog(
-            PopUpDialog(child: ViewWidget()),
-            barrierDismissible: false,
-          );
-        }
-        else {
-          Get.dialog(
-            PopUpDialog(child: RegisterScreen()),
-            barrierDismissible: false,
-          );
-        }
-      }
+
+    if (!hasPhone) {
+      // Show register screen immediately
+      Get.dialog(
+        PopUpDialog(child: RegisterScreen()),
+        barrierDismissible: false,
+      );
+      return;
+    }
+
+    // Step 2: Show loading spinner while fetching USSD data
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    // Pre-fetch the data before opening ViewWidget
+    String initialSessionText = ''; // or whatever default
+    final futureResult = await ViewWidget.loadInitialData(initialSessionText);
+
+    // Close the spinner
+    Get.back();
+
+    // Step 3: Open ViewWidget dialog with preloaded data
+    Get.dialog(
+      PopUpDialog(
+        child: ViewWidget(preloadedData: futureResult, initialSessionText: initialSessionText),
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+
+  // void checkUserStatus() async {
+  //   List<UserView> users = await UserDatabase.instance.getUsers();
+  //
+  //   // Check if any user has a non-empty phone number
+  //   final hasPhone = users.any((u) => u.phoneNumber.trim().isNotEmpty);
+  //       if (hasPhone) {
+  //         Get.dialog(
+  //           PopUpDialog(child: ViewWidget()),
+  //           barrierDismissible: false,
+  //         );
+  //       }
+  //       else {
+  //         Get.dialog(
+  //           PopUpDialog(child: RegisterScreen()),
+  //           barrierDismissible: false,
+  //         );
+  //       }
+  //     }
 
   Future<void> updateUserPhoneNumber(BuildContext context) async {
     final countryController = Get.put(CountriesController());
@@ -124,11 +161,9 @@ class UserController extends GetxController {
       code: countryController.country.value?.phoneCode ?? '',
       phoneNumber: phone,
     );
-
     try {
       await UserDatabase.instance.updateUser(user);
       displayText.value = '+${user.code} ${user.phoneNumber}'; // Update UI
-
       Get.snackbar(
         'Updated',
         'Phone number updated successfully',

@@ -13,7 +13,6 @@ class CountriesController extends GetxController {
     super.onInit();
     country.value = CountriesRepo.getCountryByPhoneCode('90'); // Default to Turkey
   }
-
   void showCountryPickerDialog(BuildContext context) async {
     final selected = await showDialog<Country>(
       context: context,
@@ -62,7 +61,6 @@ class CountriesController extends GetxController {
         );
       },
     );
-
     if (selected != null) {
       country.value = selected;
     }
